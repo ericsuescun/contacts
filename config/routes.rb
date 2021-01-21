@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'franchises/index'
+  get 'franchises/show'
+  get 'franchises/new'
+  get 'franchises/edit'
+  get 'franchises/update'
+  get 'franchises/destroy'
   # get 'sources/index'
   # get 'sources/new'
   # get 'sources/show'
