@@ -1,2 +1,73 @@
-<h1>Imports#index</h1>
-<p>Find me in app/views/imports/index.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h4>Import</h4>
+			<%= form_tag import_imports_path, multipart: true do %>
+			  <%= file_field_tag :file %>
+			  <%= submit_tag "Import CSV" %>
+			<% end %>
+		</div>
+		<div class="col-12">
+			<%= form_tag(fix_header_contacts_path, method: :put) do %>
+			<table class="table table-striped">
+				<thead>
+					
+					<%= submit_tag "Asign fields for contacts and save", class: "btn btn-primary my-3" %>
+					<tr>
+						<th></th>
+						<th>
+							<%= label_tag "Field 1" %>
+							<%= select_tag(:field1, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+								
+						</th>
+						<th>
+							<%= label_tag "Field 2" %>
+							<%= select_tag(:field2, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+								
+						</th>
+						<th>
+							<%= label_tag "Field 3" %>
+							<%= select_tag(:field3, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+								
+						</th>
+						<th>
+							<%= label_tag "Field 4" %>
+							<%= select_tag(:field4, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+								
+						</th>
+						<th>
+							<%= label_tag "Field 5" %>
+							<%= select_tag(:field5, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+								
+						</th>
+						<th>
+							<%= label_tag "Field 6" %>
+							<%= select_tag(:field6, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+								
+						</th>
+						<th>
+							<%= label_tag "Field 7" %>
+							<%= select_tag(:field7, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+								
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @imports.each do |import| %>
+						<tr>
+							<td><%= check_box_tag "imports_ids[]", import.id, checked: true %></td>
+							<td><%= import.name %></td>
+							<td><%= import.birth_date %></td>
+							<td><%= import.tel %></td>
+							<td><%= import.address %></td>
+							<td><%= import.credit_card %></td>
+							<td><%= import.franchise %></td>
+							<td><%= import.email %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+			<% end %>
+		</div>
+	</div>
+</div>

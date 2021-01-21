@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @contacts.each do |contact| %>
+						<tr>
+							<td><%= contact.name %></td>
+							<td><%= contact.birth_date %></td>
+							<td><%= contact.tel %></td>
+							<td><%= contact.address %></td>
+							<td><%= contact.credit_card %></td>
+							<td><%= contact.franchise %></td>
+							<td><%= contact.email %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
