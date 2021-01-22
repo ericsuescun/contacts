@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @contacts = Contact.all
+    @contacts = Contact.where(user_id: current_user.id).paginate(page: params[:page], per_page: 2)
   end
 
   def new
@@ -88,7 +88,7 @@ class ContactsController < ApplicationController
       
       imports.each do |import|
         keys = [ params[:field1], params[:field2], params[:field3], params[:field4], params[:field5], "franchise", params[:field6] ]
-        values = [ import.name, import.birth_date, import.tel, import.address, import.credit_card, import.franchise, import.email]
+        values = [ import.name, import.birth_date, import.tel, import.address, import.credit_card, "", import.email]
         errors = ""
         contact = Import.new(keys.zip(values).to_h) #Take as model Import, not contact yet
 
@@ -112,6 +112,10 @@ class ContactsController < ApplicationController
           errors += "Credit Card number wrong. "
         end
 
+        if contact.email == nil
+          byebug
+        end
+
         if !contact.email.match(/^\S+@\S+\.\S+$/)
           errors += "Email has errors. "
         end
@@ -129,6 +133,7 @@ class ContactsController < ApplicationController
             )
           new_contact.save
           import.destroy
+          contact = nil
         else
           import.update(import_errors: errors)
         end

@@ -1,2 +1,28 @@
-<h1>Sources#index</h1>
-<p>Find me in app/views/sources/index.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Filename</th>
+						<th>Date</th>
+						<th>Order</th>
+						<th>Status</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @sources.each do |source| %>
+						<tr>
+							<td><%= source.filename %></td>
+							<td><%= source.created_at.strftime("%Y %B %-d") %></td>
+							<td><%= source.order %></td>
+							<td><%= source.status %></td>
+							<td><%= link_to 'Delete', source, method: :delete, data: { confirm: '¿Confirm deletion?' } %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

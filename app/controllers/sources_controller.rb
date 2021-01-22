@@ -1,5 +1,6 @@
 class SourcesController < ApplicationController
   def index
+    @sources = Source.where(user_id: current_user.id)
   end
 
   def new
@@ -18,5 +19,8 @@ class SourcesController < ApplicationController
   end
 
   def destroy
+    source = Source.find(params[:id])
+    source.destroy
+    redirect_to sources_path
   end
 end

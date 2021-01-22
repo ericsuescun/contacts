@@ -1,6 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12">
+			<%= will_paginate @contacts, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer %>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -18,7 +19,7 @@
 					<% @contacts.each do |contact| %>
 						<tr>
 							<td><%= contact.name %></td>
-							<td><%= contact.birth_date %></td>
+							<td><%= contact.birth_date.strftime("%Y %B %-d") %></td>
 							<td><%= contact.tel %></td>
 							<td><%= contact.address %></td>
 							<td>***-<%= contact.credit_card[-4..-1] %></td>

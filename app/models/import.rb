@@ -8,6 +8,13 @@ class Import < ApplicationRecord
   	CSV.foreach(file.path, headers: custom, encoding: 'iso-8859-1:utf-8') do |row|
   		Import.create!(row.to_hash.merge(user_id: 1))
   	end
+  	new_source = Source.new(
+  		user_id: 1,
+  		order: nil,
+  		filename: file.original_filename,
+  		status: "pending"
+  		)
+  	new_source.save
   end
 
 end
