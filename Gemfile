@@ -32,6 +32,7 @@ gem 'devise'
 gem 'will_paginate', '~> 3.1.1'
 gem 'bootstrap-will_paginate'
 # gem 'jquery-rails'
+gem 'bcrypt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
