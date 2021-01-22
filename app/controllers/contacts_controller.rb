@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
   require 'bcrypt'
-  
+
   before_action :authenticate_user!
 
   def index
@@ -34,11 +34,11 @@ class ContactsController < ApplicationController
       franchises = Franchise.order("LENGTH(prefix) DESC")
       franchises.each do |franchise|
       # Franchise.all.each do |franchise|
-        puts "Franchise: " + franchise.name
+        #puts "Franchise: " + franchise.name
         franchise.prefix.split(',').each do |prefix|
           if prefix.match(/-/) != nil
             (prefix.split('-')[0].to_i..prefix.split('-')[1].to_i).each do |range|
-              puts "range: " + range.to_s
+              #puts "range: " + range.to_s
               if contact.credit_card[0..(range.to_s.length - 1)] == range
                 franchise.number_length.split(',').each do |f_length|
                   if f_length.match(/-/) != nil
@@ -59,9 +59,6 @@ class ContactsController < ApplicationController
             end
           else
             if contact.credit_card[0..(prefix.length - 1)] == prefix
-              if prefix == "5018"
-              end
-              puts "Prefix: " + prefix.to_s
               franchise.number_length.split(',').each do |f_length|
                 if f_length.match(/-/) != nil
                   (f_length.split('-')[0].to_i..f_length.split('-')[1].to_i).each do |l|
@@ -82,6 +79,10 @@ class ContactsController < ApplicationController
         end
       end
       return true
+    end
+
+    def refresh_file(import)
+      Source.where(filename: import.filename).first.update(status: "in_progress")
     end
 
     def fix_header
@@ -135,7 +136,11 @@ class ContactsController < ApplicationController
             cc_digest: BCrypt::Password.create(contact.credit_card)
             )
           new_contact.save
+          refresh_file(import)
           import.destroy
+          if Import.where(filename: import.filename) == []
+            Source.where(filename: import.filename).first.update(status: "finished")
+          end
           contact = nil
         else
           import.update(import_errors: errors)

@@ -6,7 +6,7 @@ class Import < ApplicationRecord
   def self.import(file)
   	custom = %i[name birth_date tel address credit_card franchise email]
   	CSV.foreach(file.path, headers: custom, encoding: 'iso-8859-1:utf-8') do |row|
-  		Import.create!(row.to_hash.merge(user_id: 1))
+  		Import.create!(row.to_hash.merge(user_id: 1).merge(filename: file.original_filename))
   	end
   	new_source = Source.new(
   		user_id: 1,
