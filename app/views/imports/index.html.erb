@@ -12,7 +12,7 @@
 			<table class="table table-striped">
 				<thead>
 					
-					<%= submit_tag "Asign fields for contacts and save", class: "btn btn-primary my-3" %>
+					<%= submit_tag "Check records and Asign fields for contacts and save", class: "btn btn-primary my-3" %>
 					<tr>
 						<th></th>
 						<th>
@@ -61,6 +61,8 @@
 							<td><%= import.credit_card %></td>
 							<td><%= import.email %></td>
 							<td><%= import.import_errors %></td>
+							<td><%= link_to 'Show', import %></td>
+							<td><%= link_to 'Edit', edit_import_path(import) %></td>
 							<td><%= link_to 'Delete', import, method: :delete, data: { confirm: '¿Confirm deletion?' } %></td>
 						</tr>
 					<% end %>

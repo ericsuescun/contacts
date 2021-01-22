@@ -1,2 +1,20 @@
-<h1>Imports#show</h1>
-<p>Find me in app/views/imports/show.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-4 mx-auto">
+			<div class="card">
+			  <div class="card-header">
+			    <%= @import.name %>
+			  </div>
+			  <div class="card-body">
+			    <h5 class="card-title">Birth date: <%= @import.birth_date %></h5>
+			    <p class="card-text">Telephone: <%= @import.tel %></p>
+			    <p class="card-text">Address: <%= @import.address %></p>
+			    <p class="card-text">Credit Card: <%= @import.credit_card %></p>
+			    <p class="card-text">Email: <%= @import.email %></p>
+			    <p class="card-text">Source file: <%= @import.filename %></p>
+			    <%= link_to "Edit", edit_import_path(@import), class: "btn btn-primary btn-sm" %>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>
