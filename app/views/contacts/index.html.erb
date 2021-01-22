@@ -22,7 +22,7 @@
 							<td><%= contact.birth_date.strftime("%Y %B %-d") %></td>
 							<td><%= contact.tel %></td>
 							<td><%= contact.address %></td>
-							<td>***-<%= contact.credit_card[-4..-1] %></td>
+							<td>***-<%= contact.credit_card %></td>
 							<td><%= contact.franchise %></td>
 							<td><%= contact.email %></td>
 							<td><%= link_to 'Delete', contact, method: :delete, data: { confirm: '¿Confirm deletion?' } %></td>

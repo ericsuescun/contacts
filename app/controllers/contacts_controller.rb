@@ -1,4 +1,6 @@
 class ContactsController < ApplicationController
+  require 'bcrypt'
+  
   before_action :authenticate_user!
 
   def index
@@ -127,9 +129,10 @@ class ContactsController < ApplicationController
             birth_date: Date.parse(contact.birth_date),
             tel: contact.tel,
             address: contact.address,
-            credit_card: contact.credit_card,
+            credit_card: contact.credit_card[-4..-1],
             franchise: contact.franchise,
-            email: contact.email
+            email: contact.email,
+            cc_digest: BCrypt::Password.create(contact.credit_card)
             )
           new_contact.save
           import.destroy
