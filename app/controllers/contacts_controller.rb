@@ -103,7 +103,7 @@ class ContactsController < ApplicationController
           errors += "Date format error. "
         end
 
-        if contact.tel.match(/\(\+\d{1,2}\)\s\d{3,3}\s\d{3,3}\s\d{2,2}\s\d{2,2}/) == false || contact.tel.match(/\(\+\d{1,2}\)\s\d{3,3}-\d{3,3}-\d{2,2}-\d{2,2}/) == false
+        if contact.tel.match(/\(\+\d{1,2}\)\s\d{3,3}\s\d{3,3}\s\d{2,2}\s\d{2,2}/) == nil && contact.tel.match(/\(\+\d{1,2}\)\s\d{3,3}-\d{3,3}-\d{2,2}-\d{2,2}/) == nil
           errors += "Phone number format error. "
         end
 
