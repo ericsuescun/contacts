@@ -22,34 +22,32 @@
 						</th>
 						<th>
 							<%= label_tag "Field 2" %>
-							<%= select_tag(:field2, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+							<%= select_tag(:field2, options_for_select([['Birthdate', 'birth_date'], ['Name', 'name'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
 								
 						</th>
 						<th>
 							<%= label_tag "Field 3" %>
-							<%= select_tag(:field3, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+							<%= select_tag(:field3, options_for_select([['Tel', 'tel'], ['Name', 'name'], ['Birthdate', 'birth_date'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
 								
 						</th>
 						<th>
 							<%= label_tag "Field 4" %>
-							<%= select_tag(:field4, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+							<%= select_tag(:field4, options_for_select([['Address', 'address'], ['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
 								
 						</th>
 						<th>
 							<%= label_tag "Field 5" %>
-							<%= select_tag(:field5, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+							<%= select_tag(:field5, options_for_select([['Cred Card', 'credit_card'], ['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
 								
 						</th>
+						
 						<th>
 							<%= label_tag "Field 6" %>
-							<%= select_tag(:field6, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
+							<%= select_tag(:field6, options_for_select([['Email', 'email'], ['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise']], nil), class: "form-control input") %>
 								
 						</th>
-						<th>
-							<%= label_tag "Field 7" %>
-							<%= select_tag(:field7, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
-								
-						</th>
+						<th>Errors</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -63,6 +61,8 @@
 							<td><%= import.credit_card %></td>
 							<td><%= import.franchise %></td>
 							<td><%= import.email %></td>
+							<td><%= import.import_errors %></td>
+							<td><%= link_to 'Delete', import, method: :delete, data: { confirm: '¿Confirm deletion?' } %></td>
 						</tr>
 					<% end %>
 				</tbody>

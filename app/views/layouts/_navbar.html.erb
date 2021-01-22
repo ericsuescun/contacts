@@ -8,11 +8,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContentB">
       <ul class="navbar-nav mr-auto">
         <% if user_signed_in? %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle <%= 'active' if @tab == :admins %>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Import
-            </a>
-            
+          <li class="nav-item">
+            <%= link_to "Import", imports_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Franchises", franchises_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Contacts", contacts_path, class: "nav-link" %>
           </li>
         <% end %>
       </ul>

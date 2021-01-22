@@ -1,5 +1,14 @@
 class FranchisesController < ApplicationController
+  before_action :authenticate_user!
+
+  def import
+    Franchise.import(params[:file])
+    redirect_to franchises_path, notice: "Data imported!"
+  end
+
   def index
+    # @franchises = Franchise.all
+    @franchises = Franchise.order("LENGTH(prefix) DESC")
   end
 
   def show
