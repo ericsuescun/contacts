@@ -3,7 +3,7 @@ class ContactsController < SecureController
   before_action :get_contact, only: [:show, :edit, :update, :destroy]
 
   def index
-    @contacts = Contact.where(user_id: current_user.id).paginate(page: params[:page], per_page: 2)
+    @contacts = current_user.contacts.paginate(page: params[:page], per_page: 2)
   end
 
   def new

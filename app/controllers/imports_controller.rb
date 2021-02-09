@@ -7,7 +7,7 @@ class ImportsController < SecureController
   end
 
   def index
-    @imports = Import.all
+    @imports = current_user.imports
   end
 
   def new
