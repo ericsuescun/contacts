@@ -1,5 +1,4 @@
-class ImportsController < ApplicationController
-  before_action :authenticate_user!
+class ImportsController < SecureController
 
   def import
     Import.import(params[:file])

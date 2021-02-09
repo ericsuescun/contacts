@@ -1,5 +1,4 @@
-class FranchisesController < ApplicationController
-  before_action :authenticate_user!
+class FranchisesController < SecureController
 
   def import
     Franchise.import(params[:file])

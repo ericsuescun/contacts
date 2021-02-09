@@ -1,7 +1,6 @@
-class ContactsController < ApplicationController
+class ContactsController < SecureController
   require 'bcrypt'
-
-  before_action :authenticate_user!
+  before_action :get_contact, only: [:show, :edit, :update, :destroy]
 
   def index
     @contacts = Contact.where(user_id: current_user.id).paginate(page: params[:page], per_page: 2)
@@ -11,25 +10,21 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @contact = Contact.find(params[:id])
   end
 
   def edit
-    @contact = Contact.find(params[:id])
   end
 
   def create
   end
 
   def update
-    contact = Contact.find(params[:id])
-    contact.update(contact_params)
+    @contact.update(contact_params)
     redirect_to contact_path
   end
 
   def destroy
-    contact = Contact.find(params[:id])
-    contact.destroy
+    @contact.destroy
     redirect_to contacts_path
   end
 
@@ -96,35 +91,47 @@ class ContactsController < ApplicationController
       keys = [ params[:field1], params[:field2], params[:field3], params[:field4], params[:field5], "franchise", params[:field6] ]
       values = [ import.name, import.birth_date, import.tel, import.address, import.credit_card, "", import.email]
       errors = ""
-      contact = Import.new(keys.zip(values).to_h) #Take as model Import, not contact yet
+      # contact = Import.new(keys.zip(values).to_h) #Take as model Import, not contact yet
+      contact = Import.new(keys.zip(values).to_h)
 
-      if contact.name.match(/^[\p{L}\s\p{N}._@?¿!¡€-]+$/) == nil
-        errors += "Character missmatch. "
+      if contact.save
+        refresh_file(import)
+        import.destroy
+        if Import.where(filename: import.filename) == []
+          Source.where(filename: import.filename).first.update(status: "finished")
+        end
+        contact = nil
+      else
+        import.update(import_errors: contact.errors.to_a)
       end
 
-      unless contact.birth_date.match(/^\d{4}-\d{2}-\d{2}/) != nil || contact.birth_date.match(/^\d{4}\d{2}\d{2}/) != nil
-        errors += "Date format error. "
-      end
+      # if contact.name.match(/^[\p{L}\s\p{N}._@?¿!¡€-]+$/) == nil
+      #   errors += "Character missmatch. "
+      # end
 
-      if contact.tel.match(/\(\+\d{1,2}\)\s\d{3,3}\s\d{3,3}\s\d{2,2}\s\d{2,2}/) == nil && contact.tel.match(/\(\+\d{1,2}\)\s\d{3,3}-\d{3,3}-\d{2,2}-\d{2,2}/) == nil
-        errors += "Phone number format error. "
-      end
+      # unless contact.birth_date.match(/^\d{4}-\d{2}-\d{2}/) != nil || contact.birth_date.match(/^\d{4}\d{2}\d{2}/) != nil
+      #   errors += "Date format error. "
+      # end
 
-      if contact.address == ""
-        errors += "Address empty error. "
-      end
+      # if contact.tel.match(/\(\+\d{1,2}\)\s\d{3,3}\s\d{3,3}\s\d{2,2}\s\d{2,2}/) == nil && contact.tel.match(/\(\+\d{1,2}\)\s\d{3,3}-\d{3,3}-\d{2,2}-\d{2,2}/) == nil
+      #   errors += "Phone number format error. "
+      # end
 
-      if get_franchise(contact)
-        errors += "Wrong Credit Card number. "
-      end
+      # if contact.address == ""
+      #   errors += "Address empty error. "
+      # end
 
-      if contact.email == nil
-        byebug
-      end
+      # if get_franchise(contact)
+      #   errors += "Wrong Credit Card number. "
+      # end
 
-      if !contact.email.match(/^\S+@\S+\.\S+$/)
-        errors += "Email has errors. "
-      end
+      # if contact.email == nil
+      #   byebug
+      # end
+
+      # if !contact.email.match(/^\S+@\S+\.\S+$/)
+      #   errors += "Email has errors. "
+      # end
 
       if errors == ""
         new_contact = Contact.new(
@@ -154,8 +161,12 @@ class ContactsController < ApplicationController
   end
 
   private
-    private
-      def contact_params
-        params.require(:contact).permit(:user_id, :name, :birth_date, :tel, :address, :credit_card, :franchise, :email)
-      end
+
+    def get_contact
+      @contact = Contact.where(user_id: current_user.id, id: params[:id])
+    end
+
+    def contact_params
+      params.require(:contact).permit(:user_id, :name, :birth_date, :tel, :address, :credit_card, :franchise, :email)
+    end
 end

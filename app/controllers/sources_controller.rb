@@ -1,4 +1,5 @@
-class SourcesController < ApplicationController
+class SourcesController < SecureController
+  
   def index
     @sources = Source.where(user_id: current_user.id)
   end
