@@ -277,6 +277,36 @@ RSpec.describe Contact, type: :model do
 			contact.valid?
 			expect(contact.errors[:email]).to include("has errors")
 		end
+
+		it "is invalid with no domain name" do
+			contact = Contact.new(
+				user_id: @user.id,
+				name: "John Smith",
+				birth_date: "1975-03-25",
+				tel: "(+57) 301-226-83-94",
+				address: "CL CR",
+				credit_card: "5300111122223333",
+				franchise: "",
+				email: "someoneelse@.com"
+				)
+			contact.valid?
+			expect(contact.errors[:email]).to include("has errors")
+		end
+
+		it "is invalid with no domain" do
+			contact = Contact.new(
+				user_id: @user.id,
+				name: "John Smith",
+				birth_date: "1975-03-25",
+				tel: "(+57) 301-226-83-94",
+				address: "CL CR",
+				credit_card: "5300111122223333",
+				franchise: "",
+				email: "someoneelse@aservice."
+				)
+			contact.valid?
+			expect(contact.errors[:email]).to include("has errors")
+		end
 	end
 	
 end
