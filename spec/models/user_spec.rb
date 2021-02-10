@@ -28,10 +28,11 @@ RSpec.describe User, type: :model do
   		email: "someone@aservice.com",
   		password: "12345678"
   		)
-  	user2 = User.create(
+  	user2 = User.new(
   		email: "someone@aservice.com",
   		password: "87654321"
   		)
-  	expect(user2).to be_invalid
+  	user2.valid?
+  	expect(user2.errors[:email]).to include("has already been taken")
   end
 end
