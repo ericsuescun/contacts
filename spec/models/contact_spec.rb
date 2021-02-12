@@ -3,14 +3,16 @@ require 'rails_helper'
 RSpec.describe Contact, type: :model do
 
 	before do
-		@user = User.create(
-			email: "someone@aservice.com",
-			password: "12345678"
-			)
+		# @user = User.create(
+		# 	email: "someone@aservice.com",
+		# 	password: "12345678"
+		# 	)
+		# @user = build(:user)
 	end
 
 	it "is valid with name, birth_date, tel, address, credit_card, franchise, email" do
 		contact = build(:contact)
+		puts "Contact info: #{contact.user.inspect}"
 		expect(contact).to be_valid
 	end
 
@@ -131,9 +133,9 @@ RSpec.describe Contact, type: :model do
 	end
 
 	after do
-		User.where(
-			email: "someone@aservice.com"
-			).first.destroy
+		# User.where(
+		# 	email: "someone@aservice.com"
+		# 	).first.destroy
 	end
 
 end

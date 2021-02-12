@@ -7,6 +7,7 @@ FactoryBot.define do
     credit_card { "5300111122223333" }
     franchise { "" }
     email
+
     association :user
   end
 end
