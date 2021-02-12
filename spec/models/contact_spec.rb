@@ -90,6 +90,20 @@ RSpec.describe Contact, type: :model do
 			expect(contact.errors[:birth_date]).to include("invalid format")
 		end
 
+		it "is invalid with one hyphen in between" do
+			contact = @user.contacts.build(
+				name: "John Smith",
+				birth_date: "1975-03 25",
+				tel: "(+57) 301 226 83 94",
+				address: "CR CL",
+				credit_card: "5300111122223333",
+				franchise: "",
+				email: "someoneelse@aservice.com"
+				)
+			contact.valid?
+			expect(contact.errors[:birth_date]).to include("invalid format")
+		end
+
 		it "is invalid without separators and length less than 8" do
 			contact = @user.contacts.build(
 				name: "John Smith",
@@ -151,6 +165,20 @@ RSpec.describe Contact, type: :model do
 				name: "John Smith",
 				birth_date: "1975-03-25",
 				tel: "(+57) 3012268394",
+				address: "CR CL",
+				credit_card: "5300111122223333",
+				franchise: "",
+				email: "someoneelse@aservice.com"
+				)
+			contact.valid?
+			expect(contact.errors[:tel]).to include("phone number format is wrong")
+		end
+
+		it "is invalid without some hyphens between groups" do
+			contact = @user.contacts.build(
+				name: "John Smith",
+				birth_date: "1975-03-25",
+				tel: "(+57) 301-226 83 94",
 				address: "CR CL",
 				credit_card: "5300111122223333",
 				franchise: "",
