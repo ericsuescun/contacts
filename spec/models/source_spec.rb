@@ -10,8 +10,7 @@ RSpec.describe Source, type: :model do
 	end
 
 	it "is valid with filename and 3 characters extension" do
-		source = Source.new(
-			user_id: @user.id,
+		source = @user.sources.build(
 			filename: "somename.ext",
 			order: nil,
 			status: nil
@@ -20,8 +19,7 @@ RSpec.describe Source, type: :model do
 	end
 
 	it "is invalid without 3 characters extension" do
-		source = Source.new(
-			user_id: @user.id,
+		source = @user.sources.build(
 			filename: "somename",
 			order: nil,
 			status: nil

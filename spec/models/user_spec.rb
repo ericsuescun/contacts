@@ -2,18 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it "is valid with email and password" do
-  	# user = User.new(
-  	# 	email: "someone@aservice.com",
-  	# 	password: "12345678"
-  	# 	)
-  	# expect(user).to be_valid
     expect(build(:user)).to be_valid
   end
   it "is invalid with empty email" do
-  	user = User.new(
-  		email: "",
-  		password: "12345678"
-  		)
+  	user = build(:user, email: '')
   	user.valid?
   	expect(user.errors[:email]).to include("can't be blank")
   end
