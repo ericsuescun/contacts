@@ -4,16 +4,6 @@ class Contact < ApplicationRecord
 
   validates :name, format: { with: /^[\p{L}\s\p{N}._@?¿!¡€-]+$/, message: "character missmatch", multiline: true }
 
-  # validate :birth_date_format
-
-  # def birth_date_format
-  #   if birth_date.to_s.match(/\A\d{4}\-\d{2}\-\d{2}\z/) || birth_date.to_s.match(/\A\d{4}\d{2}\d{2}\z/)
-  #     return true
-  #   else
-  #     errors.add :birth_date, "invalid format"
-  #   end
-  # end
-
   validates_with BirthDateValidator
 
   validate :phone_number_format
