@@ -32,10 +32,6 @@ class ContactsController < SecureController
     helpers.get_franchise(contact)
   end
 
-  def refresh_file(import)
-    Source.where(filename: import.filename).first.update(status: "in_progress")
-  end
-
   def fix_header
     imports = Import.where(id: params[:imports_ids])
     @contacts = []
@@ -48,7 +44,7 @@ class ContactsController < SecureController
       contact = Contact.new(keys.zip(values).to_h)
 
       if contact.save
-        refresh_file(import)
+        helpers.refresh_file(import)
         import.destroy
         if Import.where(filename: import.filename) == []
           Source.where(filename: import.filename).first.update(status: "finished")
