@@ -61,7 +61,7 @@ RSpec.describe Contact, type: :model do
     end
 
     it "is invalid with franchise missmatch" do
-      contact = build(:contact, credit_card: "1100111122223333")
+      contact = build(:contact, credit_card: "0000111122223333")
       contact.valid?
       expect(contact.errors[:credit_card]).to include("is invalid")
     end
