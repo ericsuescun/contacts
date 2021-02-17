@@ -57,6 +57,38 @@ RSpec.describe Contact, type: :model do
       expect(build(:contact, credit_card: "5100111122223333")).to be_valid
     end
 
+    it "is valid with franchise match and correct length variation 12" do
+      expect(build(:contact, credit_card: "676770112233")).to be_valid
+    end
+
+    it "is invalid with franchise match and wrong length variation under 12" do
+      expect(build(:contact, credit_card: "67677011223")).to be_invalid
+    end
+
+    it "is valid with franchise match and correct length variation 19" do
+      expect(build(:contact, credit_card: "6767701122334455667")).to be_valid
+    end
+
+    it "is valid with franchise match and correct length variation over 19" do
+      expect(build(:contact, credit_card: "67677011223344556678")).to be_invalid
+    end
+
+    it "is valid with franchise match and correct length" do
+      expect(build(:contact, credit_card: "5100111122223333")).to be_valid
+    end
+
+    it "is valid with franchise match, correct length and franchise name Mastercard" do
+      contact = build(:contact, credit_card: "5100111122223333")
+      contact.valid?
+      expect(contact.franchise).to include("Mastercard")
+    end
+
+    it "is valid with franchise match, correct length and franchise name Maestro UK" do
+      contact = build(:contact, credit_card: "676770112233")
+      contact.valid?
+      expect(contact.franchise).to include("Maestro UK")
+    end
+
     it "is invalid with franchise missmatch" do
       contact = build(:contact, credit_card: "0000111122223333")
       contact.valid?

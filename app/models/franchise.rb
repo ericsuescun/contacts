@@ -1,5 +1,6 @@
 class Franchise < ApplicationRecord
   require 'csv'
+  require 'concerns/franchises_data'
 
   validates :prefix, presence: true
   validates :prefix, format: { with: /\A[0-9,\s\-]+\Z/, message: "different from numbers, hyphen, spaces and commas" }
@@ -16,7 +17,21 @@ class Franchise < ApplicationRecord
     end
   end
 
-  def self.name_from_number(card_number:)
-    # Code that returns the name based on the card-number
+  def self.name_from_number(card_number)
+    franchises = FranchisesData::FRANCHISES
+
+    result = []
+    franchises_with_prefix = franchises.map do |key, value|
+      value[:prefix].each do |prefix|
+        result << [ prefix, key ]
+      end
+    end
+    result.compact.sort.reverse!
+    name = result.select{|data| card_number.to_s.start_with?(data[0].to_s) }
+    if name != []
+      return name[0][1].to_s
+    else
+      ""
+    end
   end
 end

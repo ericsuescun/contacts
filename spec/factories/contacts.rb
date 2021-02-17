@@ -5,7 +5,7 @@ FactoryBot.define do
     tel { "(+57) 301 226 83 94" }
     address { "CR CL" }
     credit_card { "5100111122223333" }
-    franchise { "" }
+
     email
 
     association :user

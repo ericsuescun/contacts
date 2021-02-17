@@ -1,13 +1,14 @@
 class Contact < ApplicationRecord
   include ActiveModel::Validations
+  require 'concerns/franchises_data'
+
   belongs_to :user
 
   validates :name, format: { with: /^[\p{L}\s\p{N}._@?¿!¡€-]+$/, message: "character missmatch", multiline: true }
 
-  # validates_with BirthDateValidator
   validates_with BirthDateValidator, CreditCardValidator
 
-  # after_validation :set_franchise_name
+  after_validation :set_franchise_name
 
   validate :phone_number_format
 
@@ -21,8 +22,8 @@ class Contact < ApplicationRecord
 
   validates :email, format: { with: /\A\S+@\S+\.\S+\z/, message: "has errors" }
 
-  # def set_franchise_name
-  #   Franchise.name_from_number(card_number: self.credit_card)
-  # end
+  def set_franchise_name
+    self.franchise = Franchise.name_from_number(self.credit_card)
+  end
 
 end
