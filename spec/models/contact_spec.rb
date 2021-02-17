@@ -53,10 +53,7 @@ RSpec.describe Contact, type: :model do
   end
 
   context "credid card validations" do
-    # it "is valid with franchise match and correct length" do
-    #   expect(build(:contact, credit_card: "5100111122223333")).to be_valid
-    # end
-    it "is valid with franchise match" do
+    it "is valid with franchise match and correct length" do
       expect(build(:contact, credit_card: "5100111122223333")).to be_valid
     end
 
