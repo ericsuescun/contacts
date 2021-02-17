@@ -13,13 +13,13 @@ module FranchisesHelper
                 if f_length.match(/-/) != nil
                   (f_length.split('-')[0].to_i..f_length.split('-')[1].to_i).each do |l|
                     if contact.credit_card.length == l
-                      contact.franchise = franchise.name
+                      contact.update(franchise: franchise.name)
                       return false
                     end
                   end
                 else
                   if contact.credit_card.length == f_length.to_i
-                    contact.franchise = franchise.name
+                    contact.update(franchise: franchise.name)
                     return false
                   end
                 end
@@ -33,13 +33,13 @@ module FranchisesHelper
               if f_length.match(/-/) != nil
                 (f_length.split('-')[0].to_i..f_length.split('-')[1].to_i).each do |l|
                   if contact.credit_card.length == l
-                    contact.franchise = franchise.name
+                    contact.update(franchise: franchise.name)
                     return false
                   end
                 end
               else
                 if contact.credit_card.length == f_length.to_i
-                  contact.franchise = franchise.name
+                  contact.update(franchise: franchise.name)
                   return false
                 end
               end

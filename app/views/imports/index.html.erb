@@ -2,49 +2,49 @@
 	<div class="row">
 		<div class="col-12">
 			<h4>Import</h4>
-			<%= form_tag import_imports_path, multipart: true do %>
+			<%= form_tag imports_path, multipart: true do %>
 			  <%= file_field_tag :file %>
 			  <%= submit_tag "Import CSV" %>
 			<% end %>
 		</div>
 		<div class="col-12">
-			<%= form_tag(fix_header_contacts_path, method: :put) do %>
+			<%= form_tag(contacts_path, method: :post) do %>
 			<table class="table table-striped">
 				<thead>
-					
+
 					<%= submit_tag "Check records and Asign fields for contacts and save", class: "btn btn-primary my-3" %>
 					<tr>
 						<th></th>
 						<th>
 							<%= label_tag "Field 1" %>
 							<%= select_tag(:field1, options_for_select([['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
-								
+
 						</th>
 						<th>
 							<%= label_tag "Field 2" %>
 							<%= select_tag(:field2, options_for_select([['Birthdate', 'birth_date'], ['Name', 'name'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
-								
+
 						</th>
 						<th>
 							<%= label_tag "Field 3" %>
 							<%= select_tag(:field3, options_for_select([['Tel', 'tel'], ['Name', 'name'], ['Birthdate', 'birth_date'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
-								
+
 						</th>
 						<th>
 							<%= label_tag "Field 4" %>
 							<%= select_tag(:field4, options_for_select([['Address', 'address'], ['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
-								
+
 						</th>
 						<th>
 							<%= label_tag "Field 5" %>
 							<%= select_tag(:field5, options_for_select([['Cred Card', 'credit_card'], ['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Franchise', 'franchise'], ['Email', 'email']], nil), class: "form-control input") %>
-								
+
 						</th>
-						
+
 						<th>
 							<%= label_tag "Field 6" %>
 							<%= select_tag(:field6, options_for_select([['Email', 'email'], ['Name', 'name'], ['Birthdate', 'birth_date'], ['Tel', 'tel'], ['Address', 'address'], ['Cred Card', 'credit_card'], ['Franchise', 'franchise']], nil), class: "form-control input") %>
-								
+
 						</th>
 						<th>Errors</th>
 						<th></th>

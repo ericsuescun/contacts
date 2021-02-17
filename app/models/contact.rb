@@ -4,7 +4,10 @@ class Contact < ApplicationRecord
 
   validates :name, format: { with: /^[\p{L}\s\p{N}._@?¿!¡€-]+$/, message: "character missmatch", multiline: true }
 
-  validates_with BirthDateValidator
+  # validates_with BirthDateValidator
+  validates_with BirthDateValidator, CreditCardValidator
+
+  # after_validation :set_franchise_name
 
   validate :phone_number_format
 
@@ -17,5 +20,9 @@ class Contact < ApplicationRecord
   validates :address, presence: true
 
   validates :email, format: { with: /\A\S+@\S+\.\S+\z/, message: "has errors" }
+
+  # def set_franchise_name
+  #   Franchise.name_from_number(card_number: self.credit_card)
+  # end
 
 end

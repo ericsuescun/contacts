@@ -1,11 +1,6 @@
 class ImportsController < SecureController
   before_action :get_import, only: [:show, :edit, :update, :destroy]
 
-  def import
-    Import.import(params[:file])
-    redirect_to imports_path, notice: "Datos importados!"
-  end
-
   def index
     @imports = current_user.imports
   end
@@ -20,6 +15,8 @@ class ImportsController < SecureController
   end
 
   def create
+    import = Import.import(params[:file])
+    redirect_to imports_path, notice: "Datos importados!"
   end
 
   def update

@@ -1,0 +1,64 @@
+
+2.7.0 :002 > File.join(Rails.root, 'spec', 'support', 'import', 'cc.csv')
+ => "/Users/ericsuescun/Documents/Projects/rails/contacts/spec/support/import/cc.csv"
+2.7.0 :003 > csv = CSV.open(File.join(Rails.root, 'spec', 'support', 'files_to_import', 'cc.csv'))
+2.7.0 :004 > csv
+ => #<CSV io_type:File io_path:"/Users/ericsuescun/Documents/Projects/rails/contacts/spec/support/files_to_import/cc.csv" encoding:UTF-8 lineno:0 col_sep:"," row_sep:"\r\n" quote_char:"\"">
+2.7.0 :005 > csv.entries
+ => [["name;prefix;number_length"], ["American Express;34", "37;15"], ["Bankcard;5610", "560221-560225;16"], ["China T-Union;31;19"], ["China UnionPay;62;16-19"], ["Diners Club enRoute;;15"], ["Diners Club International;36;14-19"], ["Diners Club United States & Canada;54;16"], ["Discover Card;6011", "622126-622925", "644", "645", "646", "647", "648", "649", "65;16-19"], ["UkrCard;60400100-60420099;16-19"], ["RuPay;60", "6521", "6522;16"], ["InterPayment;636;16-19"], ["InstaPayment;637-639;16"], ["JCB;3528-3589;16-19"], ["Maestro UK;6759", "676770", "676774;12-19"], ["Maestro;5018", "5020", "5038", "5893", "6304", "6759", "6761", "6762", "6763;12-19"], ["Dankort;5019;16"], ["Dankort Visa co-branded;4571;16"], ["MIR;2200-2204;16"], ["NPS Pridnestrovie;6054740-6054744;16"], ["Mastercard;51-55", "2221-2720;16"], ["Troy;9-6;16"], ["Visa;4;13", "16"], ["Visa Electron;4026", "417500", "4508", "4844", "4913", "4917;16"], ["UATP;1;15"], ["Verve;506099-506198", "650002-650027;16", "19"], ["LankaPay;357111;16"]]
+2.7.0 :006 > csv = CSV.open(File.join(Rails.root, 'spec', 'support', 'files_to_import', 'cc.csv'), separator
+: ';')
+Traceback (most recent call last):
+        1: from (irb):6
+ArgumentError (unknown keyword: :separator)
+2.7.0 :007 > csv = CSV.open(File.join(Rails.root, 'spec', 'support', 'files_to_import', 'cc.csv'), col_sep:
+2.7.0 :008 > csv
+ => #<CSV io_type:File io_path:"/Users/ericsuescun/Documents/Projects/rails/contacts/spec/support/files_to_import/cc.csv" encoding:UTF-8 lineno:0 col_sep:";" row_sep:"\r\n" quote_char:"\"">
+2.7.0 :009 > csv.entries
+ => [["name", "prefix", "number_length"], ["American Express", "34,37", "15"], ["Bankcard", "5610,560221-560225", "16"], ["China T-Union", "31", "19"], ["China UnionPay", "62", "16-19"], ["Diners Club enRoute", nil, "15"], ["Diners Club International", "36", "14-19"], ["Diners Club United States & Canada", "54", "16"], ["Discover Card", "6011,622126-622925,644,645,646,647,648,649,65", "16-19"], ["UkrCard", "60400100-60420099", "16-19"], ["RuPay", "60,6521,6522", "16"], ["InterPayment", "636", "16-19"], ["InstaPayment", "637-639", "16"], ["JCB", "3528-3589", "16-19"], ["Maestro UK", "6759,676770,676774", "12-19"], ["Maestro", "5018,5020,5038,5893,6304,6759,6761,6762,6763", "12-19"], ["Dankort", "5019", "16"], ["Dankort Visa co-branded", "4571", "16"], ["MIR", "2200-2204", "16"], ["NPS Pridnestrovie", "6054740-6054744", "16"], ["Mastercard", "51-55,2221-2720", "16"], ["Troy", "9-6", "16"], ["Visa", "4", "13,16"], ["Visa Electron", "4026,417500,4508,4844,4913,4917", "16"], ["UATP", "1", "15"], ["Verve", "506099-506198,650002-650027", "16,19"], ["LankaPay", "357111", "16"]]
+2.7.0 :010 > csv = CSV.open(File.join(Rails.root, 'spec', 'support', 'files_to_import', 'cc.csv'), col_sep:
+';', headers: true)
+2.7.0 :011 > csv.entries
+ => [#<CSV::Row "name":"American Express" "prefix":"34,37" "number_length":"15">, #<CSV::Row "name":"Bankcard" "prefix":"5610,560221-560225" "number_length":"16">, #<CSV::Row "name":"China T-Union" "prefix":"31" "number_length":"19">, #<CSV::Row "name":"China UnionPay" "prefix":"62" "number_length":"16-19">, #<CSV::Row "name":"Diners Club enRoute" "prefix":nil "number_length":"15">, #<CSV::Row "name":"Diners Club International" "prefix":"36" "number_length":"14-19">, #<CSV::Row "name":"Diners Club United States & Canada" "prefix":"54" "number_length":"16">, #<CSV::Row "name":"Discover Card" "prefix":"6011,622126-622925,644,645,646,647,648,649,65" "number_length":"16-19">, #<CSV::Row "name":"UkrCard" "prefix":"60400100-60420099" "number_length":"16-19">, #<CSV::Row "name":"RuPay" "prefix":"60,6521,6522" "number_length":"16">, #<CSV::Row "name":"InterPayment" "prefix":"636" "number_length":"16-19">, #<CSV::Row "name":"InstaPayment" "prefix":"637-639" "number_length":"16">, #<CSV::Row "name":"JCB" "prefix":"3528-3589" "number_length":"16-19">, #<CSV::Row "name":"Maestro UK" "prefix":"6759,676770,676774" "number_length":"12-19">, #<CSV::Row "name":"Maestro" "prefix":"5018,5020,5038,5893,6304,6759,6761,6762,6763" "number_length":"12-19">, #<CSV::Row "name":"Dankort" "prefix":"5019" "number_length":"16">, #<CSV::Row "name":"Dankort Visa co-branded" "prefix":"4571" "number_length":"16">, #<CSV::Row "name":"MIR" "prefix":"2200-2204" "number_length":"16">, #<CSV::Row "name":"NPS Pridnestrovie" "prefix":"6054740-6054744" "number_length":"16">, #<CSV::Row "name":"Mastercard" "prefix":"51-55,2221-2720" "number_length":"16">, #<CSV::Row "name":"Troy" "prefix":"9-6" "number_length":"16">, #<CSV::Row "name":"Visa" "prefix":"4" "number_length":"13,16">, #<CSV::Row "name":"Visa Electron" "prefix":"4026,417500,4508,4844,4913,4917" "number_length":"16">, #<CSV::Row "name":"UATP" "prefix":"1" "number_length":"15">, #<CSV::Row "name":"Verve" "prefix":"506099-506198,650002-650027" "number_length":"16,19">, #<CSV::Row "name":"LankaPay" "prefix":"357111" "number_length":"16">]
+2.7.0 :012 > csv.entries.first
+ => nil
+2.7.0 :013 > csv.entries[0]
+ => nil
+2.7.0 :014 > csv.entries
+ => []
+2.7.0 :015 > csv = CSV.open(File.join(Rails.root, 'spec', 'support', 'files_to_import', 'cc.csv'), col_sep:
+';', headers: true)
+2.7.0 :016 > csv.methods.sort - Object.methods
+ => [:<<, :add_row, :all?, :any?, :binmode, :binmode?, :chain, :chunk, :chunk_while, :close, :close_read, :close_write, :closed?, :col_sep, :collect, :collect_concat, :convert, :converters, :count, :cycle, :detect, :drop, :drop_while, :each, :each_cons, :each_entry, :each_slice, :each_with_index, :each_with_object, :encoding, :entries, :eof, :eof?, :exclude?, :excluding, :external_encoding, :fcntl, :field_size_limit, :fileno, :filter, :filter_map, :find, :find_all, :find_index, :first, :flat_map, :flock, :flush, :force_quotes?, :fsync, :gets, :grep, :grep_v, :group_by, :header_convert, :header_converters, :header_row?, :headers, :including, :index_by, :index_with, :inject, :internal_encoding, :ioctl, :isatty, :lazy, :liberal_parsing?, :line, :lineno, :many?, :map, :max, :max_by, :member?, :min, :min_by, :minmax, :minmax_by, :none?, :one?, :partition, :path, :pid, :pluck, :pos, :pos=, :puts, :quote_char, :read, :readline, :readlines, :reduce, :reject, :reopen, :return_headers?, :reverse_each, :rewind, :row_sep, :seek, :select, :shift, :skip_blanks?, :skip_lines, :slice_after, :slice_before, :slice_when, :sort, :sort_by, :stat, :string, :sum, :sync, :sync=, :take, :take_while, :tally, :tell, :to_a, :to_h, :to_i, :to_io, :to_set, :truncate, :tty?, :unconverted_fields?, :uniq, :without, :write_headers?, :zip]
+2.7.0 :017 > 1231231.starts_with
+Traceback (most recent call last):
+        1: from (irb):17
+NoMethodError (undefined method `starts_with' for 1231231:Integer)
+2.7.0 :018 > 1231231.start_with
+Traceback (most recent call last):
+        2: from (irb):17
+        1: from (irb):18:in `rescue in irb_binding'
+NoMethodError (undefined method `start_with' for 1231231:Integer)
+2.7.0 :019 > 1231231.to_sstart_with
+Traceback (most recent call last):
+        2: from (irb):18
+        1: from (irb):19:in `rescue in irb_binding'
+NoMethodError (undefined method `to_sstart_with' for 1231231:Integer)
+2.7.0 :020 > 1231231.to_s.start_with
+Traceback (most recent call last):
+        2: from (irb):19
+        1: from (irb):20:in `rescue in irb_binding'
+NoMethodError (undefined method `start_with' for "1231231":String)
+Did you mean?  start_with?
+               starts_with?
+2.7.0 :021 > 1231231.to_s.start_with?(12)
+Traceback (most recent call last):
+        3: from (irb):20
+        2: from (irb):21:in `rescue in irb_binding'
+        1: from (irb):21:in `start_with?'
+TypeError (no implicit conversion of Integer into String)
+2.7.0 :022 > 1231231.to_s.start_with?('12')
+ => true
+2.7.0 :023 > 1231231.to_s.start_with?('124')
+ => false
+2.7.0 :024 >

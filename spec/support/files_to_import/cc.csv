@@ -1,0 +1,27 @@
+name;prefix;number_length
+American Express;34,37;15
+Bankcard;5610,560221-560225;16
+China T-Union;31;19
+China UnionPay;62;16-19
+Diners Club enRoute;;15
+Diners Club International;36;14-19
+Diners Club United States & Canada;54;16
+Discover Card;6011,622126-622925,644,645,646,647,648,649,65;16-19
+UkrCard;60400100-60420099;16-19
+RuPay;60,6521,6522;16
+InterPayment;636;16-19
+InstaPayment;637-639;16
+JCB;3528-3589;16-19
+Maestro UK;6759,676770,676774;12-19
+Maestro;5018,5020,5038,5893,6304,6759,6761,6762,6763;12-19
+Dankort;5019;16
+Dankort Visa co-branded;4571;16
+MIR;2200-2204;16
+NPS Pridnestrovie;6054740-6054744;16
+Mastercard;51-55,2221-2720;16
+Troy;9-6;16
+Visa;4;13,16
+Visa Electron;4026,417500,4508,4844,4913,4917;16
+UATP;1;15
+Verve;506099-506198,650002-650027;16,19
+LankaPay;357111;16
