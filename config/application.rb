@@ -23,5 +23,6 @@ module Contacts
         request_specs: false
     end
     # config.factory_bot.definition_file_paths = ["custom/factories"]
+    config.active_job.queue_adapter = :sidekiq
   end
 end

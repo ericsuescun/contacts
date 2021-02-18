@@ -17,7 +17,8 @@ class ContactsController < SecureController
 
   def create
     @contacts = current_user.contacts
-    CreateContactsFromImportJob.perform_later(params[:imports_ids], current_user, params[:field1], params[:field2], params[:field3], params[:field4], params[:field5], params[:field6])
+    # CreateContactsFromImportJob.perform_later(params[:imports_ids], current_user, params[:field1], params[:field2], params[:field3], params[:field4], params[:field5], params[:field6])
+    ContactCracker.perform_async(params[:imports_ids], current_user.id, params[:field1], params[:field2], params[:field3], params[:field4], params[:field5], params[:field6])
     redirect_to imports_path
   end
 
