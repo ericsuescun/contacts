@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :source do
-    filename { "somename.ext" }
+    filename { "test.csv" }
     order { nil }
     status { nil }
     association :user

@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
 
+  before(:each) do
+    Import.destroy_all
+    Contact.destroy_all
+  end
+
   it "is valid with name, birth_date, tel, address, credit_card, franchise, email" do
     contact = build(:contact)
-    puts "Contact info: #{contact.user.inspect}"
     expect(contact).to be_valid
   end
 
@@ -179,6 +183,73 @@ RSpec.describe Contact, type: :model do
       contact = build(:contact, email: "someoneelse@aservice.")
       contact.valid?
       expect(contact.errors[:email]).to include("has errors")
+    end
+  end
+
+  context "with Active Job contact creation" do
+    it "creates 3 valid contacts and extracts 3 import records" do
+
+      3.times{|n| create(:import)}
+      init_imports = Import.count
+      init_contacts = Contact.count
+      import_file = create(:source)
+      import_ids = Import.ids
+      CreateContactsFromImportJob.perform_now(
+          import_ids,
+          Import.take(1).first.user,
+          "name",
+          "birth_date",
+          "tel",
+          "address",
+          "credit_card",
+          "email"
+        )
+      expect(init_imports - Import.count).to eq 3
+      expect(Contact.count - init_contacts ).to eq 3
+    end
+
+    it "creates no contacts and imports remain the same" do
+
+      3.times{|n| create(:import)}
+      init_imports = Import.count
+      init_contacts = Contact.count
+      import_file = create(:source)
+      import_ids = Import.ids
+      CreateContactsFromImportJob.perform_now(
+          import_ids,
+          Import.take(1).first.user,
+          "name",
+          "tel",
+          "birth_date",
+          "address",
+          "credit_card",
+          "email"
+        )
+      expect(init_imports - Import.count).to eq 0
+      expect(Contact.count - init_contacts ).to eq 0
+    end
+
+    it "creates 2 valid contacts and leaves 1 import record with email error" do
+      2.times{|n| create(:import)}
+      failed_import = create(:import, email: "someone@somwhere")
+      init_imports = Import.count
+      init_contacts = Contact.count
+      import_file = create(:source)
+      import_ids = Import.ids
+      CreateContactsFromImportJob.perform_now(
+          import_ids,
+          Import.take(1).first.user,
+          "name",
+          "birth_date",
+          "tel",
+          "address",
+          "credit_card",
+          "email"
+        )
+      expect(Import.count).to eq 1
+      expect(Contact.count - init_contacts ).to eq 2
+      # expect(failed_import.import_errors).to include("Email has errors")
+      expect(Import.where(email: "someone@somwhere").first.import_errors).to include("Email has errors")
     end
   end
 end

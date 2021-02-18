@@ -16,35 +16,28 @@ class ContactsController < SecureController
   end
 
   def create
-    imports = Import.where(id: params[:imports_ids])
+    # imports = Import.where(id: params[:imports_ids])
     @contacts = current_user.contacts
 
-    # CreateContactsFromImportJob.perform_later(import, current_user)
+    CreateContactsFromImportJob.perform_later(params[:imports_ids], current_user, params[:field1], params[:field2], params[:field3], params[:field4], params[:field5], params[:field6])
 
-    imports.each do |import|
-      keys = [ "user_id", params[:field1], params[:field2], params[:field3], params[:field4], params[:field5], "franchise", params[:field6] ]
-      values = [ current_user.id, import.name, import.birth_date, import.tel, import.address, import.credit_card, "", import.email]
-      errors = ""
-      # contact = Import.new(keys.zip(values).to_h) #Take as model Import, not contact yet
-      contact = Contact.new(keys.zip(values).to_h)
+    # imports.each do |import|
+    #   keys = [ "user_id", params[:field1], params[:field2], params[:field3], params[:field4], params[:field5], "franchise", params[:field6] ]
+    #   values = [ current_user.id, import.name, import.birth_date, import.tel, import.address, import.credit_card, "", import.email]
+    #   errors = ""
+    #   contact = Contact.new(keys.zip(values).to_h)
 
-      if contact.save
-        helpers.refresh_file(import)
-        import.destroy
-        if Import.where(filename: import.filename) == []
-          Source.where(filename: import.filename).first.update(status: "finished")
-        end
-        # contact = nil
-      else
-        import.update(import_errors: contact.errors.to_a.join(', '))
-      end
-
-      # if helpers.get_franchise(contact)
-      #   import.update(import_errors: import.import_errors + " Wrong Credit Card number. ")
-      # end
-
-    end
-    redirect_to contacts_path
+    #   if contact.save
+    #     helpers.refresh_file(import)
+    #     import.destroy
+    #     if Import.where(filename: import.filename) == []
+    #       Source.where(filename: import.filename).first.update(status: "finished")
+    #     end
+    #   else
+    #     import.update(import_errors: contact.errors.to_a.join(', '))
+    #   end
+    # end
+    redirect_to imports_path
   end
 
   def update
