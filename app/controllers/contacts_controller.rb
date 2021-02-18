@@ -1,5 +1,5 @@
 class ContactsController < SecureController
-  require 'bcrypt'
+
   before_action :get_contact, only: [:show, :edit, :update, :destroy]
 
   def index

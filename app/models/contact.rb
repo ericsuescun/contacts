@@ -1,6 +1,8 @@
 class Contact < ApplicationRecord
   include ActiveModel::Validations
+
   require 'concerns/franchises_data'
+  require 'bcrypt'
 
   belongs_to :user
 
@@ -8,7 +10,7 @@ class Contact < ApplicationRecord
 
   validates_with BirthDateValidator, CreditCardValidator
 
-  after_validation :set_franchise_name
+  after_validation :set_franchise_name, :encrypt_credit_card, :set_4_credit_card_number
 
   validate :phone_number_format
 
@@ -24,6 +26,14 @@ class Contact < ApplicationRecord
 
   def set_franchise_name
     self.franchise = Franchise.name_from_number(self.credit_card)
+  end
+
+  def encrypt_credit_card
+    self.cc_digest =BCrypt::Password.create(self.credit_card)
+  end
+
+  def set_4_credit_card_number
+    self.credit_card = self.credit_card[-4..-1]
   end
 
 end
