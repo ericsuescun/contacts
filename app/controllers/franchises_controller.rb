@@ -1,10 +1,5 @@
 class FranchisesController < SecureController
 
-  def import
-    Franchise.import(params[:file])
-    redirect_to franchises_path, notice: "Data imported!"
-  end
-
   def index
     # @franchises = Franchise.all
     @franchises = Franchise.order("LENGTH(prefix) DESC")
@@ -17,6 +12,11 @@ class FranchisesController < SecureController
   end
 
   def edit
+  end
+
+  def create
+    Franchise.import(params[:file])
+    redirect_to franchises_path, notice: "Datos importados!"
   end
 
   def update

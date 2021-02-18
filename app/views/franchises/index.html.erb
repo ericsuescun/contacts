@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-12">
 			<h4>Import franchise table</h4>
-			<%= form_tag import_franchises_path, multipart: true do %>
+			<%= form_tag franchises_path, multipart: true do %>
 			  <%= file_field_tag :file %>
 			  <%= submit_tag "Import CSV" %>
 			<% end %>
@@ -16,7 +16,7 @@
 						<th>IIN ranges</th>
 						<th>Field length</th>
 					</tr>
-					
+
 				</thead>
 				<tbody>
 					<% @franchises.each do |franchise| %>
