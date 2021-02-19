@@ -29,7 +29,9 @@ class ContactsController < SecureController
     else
       render :edit
     end
+  end
 
+  def forbiden_user
 
   end
 
@@ -41,7 +43,11 @@ class ContactsController < SecureController
   private
 
     def get_contact
-      @contact = current_user.contacts.where(id: params[:id].to_i).first
+      unless current_user.contacts.empty?
+        @contact = current_user.contacts.where(id: params[:id].to_i).first
+      else
+        render :forbiden_user
+      end
     end
 
     def contact_params
