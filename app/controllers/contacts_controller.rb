@@ -24,8 +24,13 @@ class ContactsController < SecureController
   end
 
   def update
-    @contact.update(contact_params)
-    redirect_to contact_path
+    if @contact.update(contact_params)
+      redirect_to contact_path
+    else
+      render :edit
+    end
+
+
   end
 
   def destroy

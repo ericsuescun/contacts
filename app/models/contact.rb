@@ -10,7 +10,8 @@ class Contact < ApplicationRecord
 
   validates_with BirthDateValidator, CreditCardValidator
 
-  after_validation :set_franchise_name, :encrypt_credit_card, :set_4_credit_card_number
+  # after_validation :set_franchise_name, :encrypt_credit_card, :set_4_credit_card_number
+  after_validation :set_franchise_name, :encrypt_credit_card
 
   validate :phone_number_format
 
@@ -34,6 +35,10 @@ class Contact < ApplicationRecord
 
   def set_4_credit_card_number
     self.credit_card = self.credit_card[-4..-1]
+  end
+
+  def creditcard_secure
+    credit_card[-4..-1]
   end
 
 end

@@ -1,3 +1,14 @@
+<% if @contact.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= @contact.errors.count %> error(es) impidieron que este registro fuera guardado:</h2>
+
+    <ul>
+    <% @contact.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= form_for @contact do |form| %>
   <div class="container">
     <div class="row">
@@ -27,7 +38,7 @@
           <%= form.text_field :email, class: "form-control input"  %>
         </div>
       </div>
-      
+
     </div>
     <div class="row">
       <div class="col-12 col-xl-4 mx-auto">
