@@ -1,4 +1,4 @@
-class ContactCraker
+class ContactCracker
   include Sidekiq::Worker
 
   def perform(imports_ids, current_user_id, params1, params2, params3, params4, params5, params6)
@@ -14,11 +14,11 @@ class ContactCraker
       contact = user.contacts.build(keys.zip(values).to_h)
 
       if contact.save
-        Source.where(filename: import.filename).first.update(status: "in_progress")
+        # Source.where(filename: import.filename).first.update(status: "in_progress")
         import.destroy
-        if Import.where(filename: import.filename) == []
-          Source.where(filename: import.filename).first.update(status: "finished")
-        end
+        # if Import.where(filename: import.filename) == []
+        #   Source.where(filename: import.filename).first.update(status: "finished")
+        # end
       else
         import.update(import_errors: contact.errors.to_a.join(', '))
       end

@@ -15,7 +15,8 @@ class ImportsController < SecureController
   end
 
   def create
-    import = Import.import(params[:file])
+    Import.import(params[:file], current_user.id)
+    helpers.set_source_filename(current_user.id, params[:file].original_filename)
     redirect_to imports_path, notice: "Datos importados!"
   end
 

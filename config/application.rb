@@ -16,11 +16,8 @@ module Contacts
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.generators do |g|
-    	g.test_framework :rspec,
-    	view_specs: false,
-    	helper_specs: false,
-    	routing_specs: false,
-        request_specs: false
+    	g.test_framework :rspec
+
     end
     # config.factory_bot.definition_file_paths = ["custom/factories"]
     config.active_job.queue_adapter = :sidekiq

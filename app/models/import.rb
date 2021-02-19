@@ -3,18 +3,13 @@ class Import < ApplicationRecord
 
   require 'csv'
 
-  def self.import(file)
+  validates :filename, presence: true
+
+  def self.import(file, user_id)
+    user = User.find(user_id)
   	custom = %i[name birth_date tel address credit_card franchise email]
   	CSV.foreach(file.path, headers: custom, encoding: 'iso-8859-1:utf-8') do |row|
-  		Import.create!(row.to_hash.merge(user_id: 1).merge(filename: file.original_filename))
+  		user.imports.create!(row.to_hash.merge(filename: file.original_filename))
   	end
-  	new_source = Source.new(
-  		user_id: 1,
-  		order: nil,
-  		filename: file.original_filename,
-  		status: "pending"
-  		)
-  	new_source.save
   end
-
 end

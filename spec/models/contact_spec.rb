@@ -194,9 +194,10 @@ RSpec.describe Contact, type: :model do
       init_contacts = Contact.count
       import_file = create(:source)
       import_ids = Import.ids
-      CreateContactsFromImportJob.perform_now(
+      # CreateContactsFromImportJob.perform_now(
+      ContactCracker.new.perform(
           import_ids,
-          Import.take(1).first.user,
+          Import.take(1).first.user.id,
           "name",
           "birth_date",
           "tel",
@@ -215,9 +216,10 @@ RSpec.describe Contact, type: :model do
       init_contacts = Contact.count
       import_file = create(:source)
       import_ids = Import.ids
-      CreateContactsFromImportJob.perform_now(
+      # CreateContactsFromImportJob.perform_now(
+      ContactCracker.new.perform(
           import_ids,
-          Import.take(1).first.user,
+          Import.take(1).first.user.id,
           "name",
           "tel",
           "birth_date",
@@ -236,9 +238,10 @@ RSpec.describe Contact, type: :model do
       init_contacts = Contact.count
       import_file = create(:source)
       import_ids = Import.ids
-      CreateContactsFromImportJob.perform_now(
+      # CreateContactsFromImportJob.perform_now(
+      ContactCracker.new.perform(
           import_ids,
-          Import.take(1).first.user,
+          Import.take(1).first.user.id,
           "name",
           "birth_date",
           "tel",
