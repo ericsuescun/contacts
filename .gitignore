@@ -34,5 +34,5 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
-dump.rdb
-.ruby-version
+/dump.rdb
+/.ruby-version
