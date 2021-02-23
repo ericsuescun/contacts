@@ -4,7 +4,7 @@ require_relative '../support/devise'
 RSpec.describe ContactsController, type: :controller do
   describe "#index" do
     context "as an unauthenticated user" do
-      it "gets a redirection" do
+      it "gets a redirection to sign in" do
         get :index
         expect(response).to redirect_to("/users/sign_in")
       end
@@ -25,6 +25,28 @@ RSpec.describe ContactsController, type: :controller do
       it "returns a 200 http response code" do
         get :index
         expect(response).to have_http_status "200"
+      end
+    end
+  end
+
+  describe "#show" do
+    context "as an UNauthenticated user" do
+      it "makes redirection to sign in when #show action invoked" do
+        contact = create(:contact)
+        user2 = create(:user)
+        params = { id: user2.id }
+        get :show, params: params
+        expect(response).to redirect_to("/users/sign_in")
+      end
+    end
+    context "as an authenticated user" do
+      login_user
+      it "shows an contact record when #show action invoked" do
+        contact = create(:contact)
+        contact.update(user_id: @user.id)  #Make sure it's the same user
+        params = { id: @user.id }
+        get :show, params: params
+        expect(response).to have_http_status(:success)
       end
     end
   end

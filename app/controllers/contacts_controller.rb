@@ -31,10 +31,6 @@ class ContactsController < SecureController
     end
   end
 
-  def forbiden_user
-
-  end
-
   def destroy
     @contact.destroy
     redirect_to contacts_path
@@ -46,7 +42,7 @@ class ContactsController < SecureController
       unless current_user.contacts.empty?
         @contact = current_user.contacts.where(id: params[:id].to_i).first
       else
-        render :forbiden_user
+        render partial: "./shared/forbiden_user"
       end
     end
 
