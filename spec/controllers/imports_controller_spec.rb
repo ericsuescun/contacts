@@ -141,8 +141,6 @@ RSpec.describe ImportsController, type: :controller do
 			      import.update(user_id: user2.id)
 
 			      params = { id: import.id }
-			      # delete :destroy, params: params
-			      # expect(response).to have_http_status "200"
 			      expect {
 			        delete :destroy, params: params
 			      }.to_not change(Contact, :count)
@@ -155,7 +153,3 @@ RSpec.describe ImportsController, type: :controller do
 	  User.destroy_all
 	end
 end
-
-#Started POST "/imports" for ::1 at 2021-02-22 10:25:41 -0500
-#Processing by ImportsController#create as HTML
-  #Parameters: {"authenticity_token"=>"pQGreyEp/fERFxNHjzk7ApZU60zlPQY1gzFCQ7hW/RlNLde2NaOqbFBTKjt2UiLsBTAXgzKmxfz0HxGG70A/vQ==", "file"=>#<ActionDispatch::Http::UploadedFile:0x00007fc3e652a9e8 @tempfile=#<Tempfile:/var/folders/18/n13zvysd26q5p0_36hdqkmkw0000gn/T/RackMultipart20210222-6867-wuot6x.csv>, @original_filename="test1ok.csv", @content_type="text/csv", @headers="Content-Disposition: form-data; name=\"file\"; filename=\"test1ok.csv\"\r\nContent-Type: text/csv\r\n">, "commit"=>"Import CSV"}
